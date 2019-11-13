@@ -16,7 +16,7 @@ const budgetController = (function(){
  * user interface module, handles the UI functions
  */
 const UIController = (function(){
-    // private object DOMStrings so strings are not repeated and for ease
+    // private object DOMStrings so strings are not repeated and for more ease
     const DOMStrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
