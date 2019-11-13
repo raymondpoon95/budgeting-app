@@ -41,11 +41,37 @@ const UIController = (function(){
 
 
 
+
 /************************************************************
  * controller module, handles the link between the UI and budget controller modules
  * the controller module always tells the other controllers what to do
  */
 const controller = (function(budgetCtrl, UICtrl){
+    const DOM = UICtrl.getDOMStrings();
 
+    let ctrlAddItem = function(){
+
+        // 1. get the field input data 
+        let input = UICtrl.getInput();
+        console.log(input);
+
+
+        // 2. add the item to the budget controller
+
+        // 3. add the item to the UI
+
+        // 4. calculate the budget
+
+        // 5. display the budget 
+
+    }
+
+    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+    document.addEventListener('keypress', function(event){
+        if(event.keyCode === 13 || event.which === 13){
+            ctrlAddItem();
+        }
+    });
 
 })(budgetController, UIController); // variables passed here will be used as arguements 
