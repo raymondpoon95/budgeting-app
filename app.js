@@ -67,6 +67,21 @@ const UIController = (function(){
             document.querySelector(element).insertAdjacentHTML('beforeend', newHTML);
 
         },
+
+        clearFields: function () {
+            let fields, fieldsArray;
+
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue);
+
+            fieldsArray = Array.prototype.slice.call(fields);
+
+            fieldsArray.forEach(function (current, index, array) {
+                current.value = '';
+            });
+
+            fieldsArray[0].focus();
+        },
+        
     }
 })();
 
