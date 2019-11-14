@@ -22,6 +22,8 @@ const UIController = (function(){
         inputDescription: '.add__description',
         inputValue: '.add__value',
         inputBtn: '.add__btn',
+        incomeContainer: '.income__list',
+        expenseContainer: '.expenses__list',
     }
 
     // grab input
@@ -59,24 +61,26 @@ const controller = (function(budgetCtrl, UICtrl){
         });
     };
 
-    let ctrlAddItem = function(){
+    const ctrlAddItem = function () {
+        let input, newItem;
 
         // 1. get the field input data 
-        let input = UICtrl.getInput();
-        console.log(input);
+        input = UICtrl.getInput();
 
+        if (input.description !== '' && !isNaN(input.value) && input.value > 0) {
+            // 2. add the item to the budget controller
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-        // 2. add the item to the budget controller
+            // 3. add the item to the UI
+            UICtrl.addListItem(newItem, input.type);
 
-        // 3. add the item to the UI
+            // 4. clear the input fields 
+            UICtrl.clearFields();
 
-        // 4. calculate the budget
-
-        // 5. display the budget 
-
+            // 5. calculate and update budget
+            updateBudget();
+        }
     }
-
-
 
     // public methods 
     return {
