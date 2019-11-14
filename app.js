@@ -47,7 +47,17 @@ const UIController = (function(){
  * the controller module always tells the other controllers what to do
  */
 const controller = (function(budgetCtrl, UICtrl){
-    const DOM = UICtrl.getDOMStrings();
+    const setUpEventListeners = function () {
+        const DOM = UICtrl.getDOMStrings();
+
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+        document.addEventListener('keypress', function (event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+        });
+    };
 
     let ctrlAddItem = function(){
 
@@ -66,12 +76,17 @@ const controller = (function(budgetCtrl, UICtrl){
 
     }
 
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 
-    document.addEventListener('keypress', function(event){
-        if(event.keyCode === 13 || event.which === 13){
-            ctrlAddItem();
-        }
-    });
+
+    // public methods 
+    return {
+        init: function () {
+            console.log('Application started');
+            setUpEventListeners();
+        },
+    }
 
 })(budgetController, UIController); // variables passed here will be used as arguements 
+
+
+controller.init(); // calls the function to initalise the app
