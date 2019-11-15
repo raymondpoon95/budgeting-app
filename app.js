@@ -5,7 +5,40 @@
  * budget control module, handles the data
  */
 const budgetController = (function(){
+    const Expenses = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
 
+    const Income = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    const calculateTotal = function(type){
+        let sum = 0;
+
+        data.allItems[type].forEach(function(current){
+            sum += current.value;
+        });
+
+        data.totals[type] = sum;
+    }
+
+    const data = {
+        allItems: {
+            exp: [],
+            inc: [],
+        },
+        totals: {
+            exp: 0,
+            inc: 0,
+        },
+        budget: 0,
+        percentage: -1,
+    }
 
 })();
 
@@ -24,6 +57,10 @@ const UIController = (function(){
         inputBtn: '.add__btn',
         incomeContainer: '.income__list',
         expenseContainer: '.expenses__list',
+        budgetLabel: '.budget__value',
+        incomeLabel: '.budget__income--value',
+        expensesLabel: '.budget__expenses--value',
+        percentageLabel: '.budget__expenses--percentage',
     }
 
     // public methods 
@@ -81,7 +118,19 @@ const UIController = (function(){
 
             fieldsArray[0].focus();
         },
-        
+
+        displayBudget: function(obj){
+            document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
+            document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalIncome;
+            document.querySelector(DOMStrings.expensesLabel).textContent = obj.totalExpenses;
+
+            if(obj.percentage < 0){
+                document.querySelector(DOMStrings.percentageLabel).textContent = '---';
+            } else {
+                document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
+            }
+        }
+
     }
 })();
 
