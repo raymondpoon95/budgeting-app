@@ -154,6 +154,17 @@ const controller = (function(budgetCtrl, UICtrl){
         });
     };
 
+    const updateBudget = function () {
+        // 1. calculate the budget
+        budgetCtrl.calculateBudget();
+
+        // 2. return the budget
+        const budget = budgetCtrl.getBudget();
+
+        // 3. display the budget in the UI
+        UICtrl.displayBudget(budget);
+    };
+
     const ctrlAddItem = function () {
         let input, newItem;
 
