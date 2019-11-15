@@ -25,7 +25,7 @@ const budgetController = (function(){
         });
 
         data.totals[type] = sum;
-    }
+    };
 
     const data = {
         allItems: {
@@ -38,6 +38,33 @@ const budgetController = (function(){
         },
         budget: 0,
         percentage: -1,
+    };
+
+    return {
+        addItem: function (type, description, value) {
+            let newItem, ID;
+
+            // creates a new ID
+            if (data.allItems[type].length > 0) {
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                ID = 0;
+            }
+
+
+            // create new item based on inc or exp type
+            if (type === 'exp') {
+                newItem = new Expenses(ID, description, value);
+            } else if (type === 'inc') {
+                newItem = new Income(ID, description, value);
+            }
+
+            // push into our data structure 
+            data.allItems[type].push(newItem);
+
+            // return the new element
+            return newItem;
+        },
     }
 
 })();
@@ -190,6 +217,12 @@ const controller = (function(budgetCtrl, UICtrl){
     return {
         init: function () {
             console.log('Application started');
+            UICtrl.displayBudget({
+                budget: 0,
+                totalIncome: 0,
+                totalExpenses: 0,
+                percentage: -1,
+            });
             setUpEventListeners();
         },
     }
