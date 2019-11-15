@@ -65,8 +65,33 @@ const budgetController = (function(){
             // return the new element
             return newItem;
         },
-    }
 
+        calculateBudget: function(){
+            // calculate total income and expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+
+            // calculate the budget
+            data.budget = data.totals.inc - data.totals.exp;
+
+            // calculate the percentage of income spent
+            if(data.totals.inc > 0)
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+        },
+
+        getBudget: function(){
+            return {
+                budget: data.budget,
+                totalIncome: data.totals.inc,
+                totalExpenses: data.totals.exp,
+                percentage: data.percentage,
+            }
+        },
+
+        testing: function() {
+            console.log(data);
+        }
+    }
 })();
 
 
