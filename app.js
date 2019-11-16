@@ -89,7 +89,7 @@ const budgetController = (function(){
         },
 
         testing: function() {
-            console.log(data);
+            console.log(data)
         }
     }
 })();
